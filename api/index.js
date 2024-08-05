@@ -13,6 +13,9 @@ mongoose.connect(process.env.MONGO).then(() => {
   console.log(err);
 });
 
+// console.log(db);
+
+
 const app = express();
 
 app.use(bodyParser.urlencoded({extended : true}));
@@ -20,6 +23,9 @@ app.use(bodyParser.urlencoded({extended : true}));
 app.listen(3000, () => {
   console.log("listening on port 3000 !!");
 })
+
+
+
 
 app.use("/api/user", userRouter);
 app.use("/api/user", authRouter);
