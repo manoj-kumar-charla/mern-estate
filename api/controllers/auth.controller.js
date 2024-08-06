@@ -4,6 +4,10 @@ import { errorHandler } from "../utils/error.js";
 
 export const auth = async (req, res, next) => {
   const {username, email, password} = req.body;
+  if(!username || !email || !password){
+    next({'message' : "All fields are reqired"});
+    return;
+  }
   const hashedPassword = bcryptjs.hashSync(password, 10);
   try {
     const newUser = new User({username: username, email, password: hashedPassword});

@@ -5,7 +5,7 @@ function SignUp() {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate;
+  const navigate = useNavigate();
   function handleChange(event) {
     setFormData({
       ...formData,
@@ -18,11 +18,6 @@ function SignUp() {
     
     try {
       setLoading(true);
-      if(!formData.username || !formData.email || !formData.password){
-        setLoading(false);
-        setError("All fields are required");
-        return;
-      }
       const res = await fetch("/api/auth/signup", {
         method: "POST",
         headers: {
