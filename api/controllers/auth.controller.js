@@ -3,7 +3,6 @@ import bcryptjs from 'bcryptjs';
 import { errorHandler } from "../utils/error.js";
 
 export const auth = async (req, res, next) => {
-
   const {username, email, password} = req.body;
   const hashedPassword = bcryptjs.hashSync(password, 10);
   try {
@@ -11,6 +10,9 @@ export const auth = async (req, res, next) => {
     await newUser.save();
     res.status(201).json("user created successfully!!");
   } catch (error) {
-    next(errorHandler(error, req, res));
+    // return new Error();
+    console.log(error);
+    
+    next(error);
   }
 }
