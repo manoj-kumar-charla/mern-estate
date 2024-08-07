@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { signInStart, signInSuccess, signInFailure } from "../../redux/user/userSlice";
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from "../../redux/user/userSlice";
 function SignIn() {
   const [formData, setFormData] = useState({});
-  const {error, loading} = useSelector((state) => state.user);
+  const { error, loading } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   function handleChange(event) {
@@ -16,7 +20,7 @@ function SignIn() {
   }
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
+
     try {
       dispatch(signInStart());
       const res = await fetch("/api/auth/signin", {
@@ -29,15 +33,15 @@ function SignIn() {
       const data = await res.json();
       if (data.success === false) {
         // console.log(data.message);
-        
+
         dispatch(signInFailure(data.message));
         return;
       }
       dispatch(signInSuccess(data));
-      navigate('/')
+      navigate("/");
     } catch (error) {
       // console.log(error);
-      
+
       dispatch(signInFailure(error.message));
     }
 
@@ -47,7 +51,6 @@ function SignIn() {
     <div className="max-w-lg mx-auto p-3">
       <h1 className="font-semibold my-7 text-center">Sign In</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        
         <input
           type="text"
           placeholder="email"
@@ -63,7 +66,7 @@ function SignIn() {
           onChange={handleChange}
         />
         <button className="border rounded-lg p-3 bg-slate-700 text-white uppercase hover:opacity-95 disabled:opacity-80">
-        {!loading ? "Sign In" : "Loading..."}
+          {!loading ? "Sign In" : "Loading..."}
         </button>
       </form>
       <div className="flex gap-2 mt-5">
